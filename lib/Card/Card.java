@@ -4,9 +4,9 @@ public class Card {
     private final Color color;
     private final PlayBehavior playBehavior;
     private final Integer value;
-    private int points;
+    private final Integer points;
 
-    public Card(Color color, PlayBehavior playBehavior, Integer value, int points) {
+    public Card(Color color, PlayBehavior playBehavior, Integer value, Integer points) {
        this.color = Objects.requireNonNull(color, "Color cannot be null. use NoColor instead");
        this.playBehavior = Objects.requireNonNull(playBehavior, "PlayBehavior cannot be null. Use NoPlayBehavior instead");
        this.value = value;
@@ -16,7 +16,7 @@ public class Card {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(color.value).append(" ");
-        stringBuilder.append(playBehavior).append(" ");
+        stringBuilder.append(playBehavior.getClass().getName()).append(" ");
         if (value != null) stringBuilder.append(value);
 
         return stringBuilder.toString();
@@ -28,5 +28,17 @@ public class Card {
 
     public int getPoints() {
         return this.points;
+    }
+
+    public boolean matches(Card card) {
+        return this.color.equals(card.color) ||
+                (hasPlayBehavior() && card.hasPlayBehavior() && (this.playBehavior.getClass() == card.playBehavior.getClass())) ||
+                (this.value != null && card.value != null && this.value.equals(card.value)) ||
+                card.playBehavior instanceof WildBehavior ||
+                card.playBehavior instanceof WildDrawFourBehavior;
+    }
+
+    public boolean hasPlayBehavior() {
+        return !(this.playBehavior instanceof NoPlayBehavior);
     }
 }

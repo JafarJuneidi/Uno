@@ -30,6 +30,13 @@ public class DefaultCardPile implements CardPile {
         return pile.peek();
     }
 
+    @Override
+    public List<Card> removeAllCards() {
+        List<Card> allCards = pile;
+        pile.clear();
+        return allCards;
+    }
+
     public int size() {
         return pile.size();
     }
