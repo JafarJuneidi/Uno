@@ -73,19 +73,17 @@ public abstract class Game {
         this.drawPile.addCards(this.discardPile.removeAllCards());
         this.direction = Direction.CLOCKWISE;
 
-        // retrieve all cards from players
-        // add cards back to draw pile
         drawPile.addCards(collectAllCards());
-        // shuffle draw pile before dealing
+
         drawPile.shuffle();
-        // deal cards to players
+
         List<List<Card>> dealingCards = drawPile.getPlayerHands(getNumberOfPlayers(), cardsDealt);
         dealHands(dealingCards);
-        // shuffle draw pile until a no action card faces up
+
         while (drawPile.peekCard().hasPlayBehavior()) {
             drawPile.shuffle();
         }
-        // play first card
+
         Card card = drawPile.removeCard();
         discardCard(card);
         card.play(this);
