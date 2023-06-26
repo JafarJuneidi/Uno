@@ -37,10 +37,12 @@ public class DefaultCardPile implements CardPile {
         return allCards;
     }
 
+    @Override
     public int size() {
         return pile.size();
     }
 
+    @Override
     public void shuffle() {
         Collections.shuffle(pile);
     }

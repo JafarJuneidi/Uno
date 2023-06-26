@@ -1,5 +1,5 @@
 public class WildDrawFourBehavior implements PlayBehavior {
-    private final PlayBehavior wildBehavior = new WildBehavior();
+    private final WildBehavior wildBehavior = new WildBehavior();
     public void play(Game game) {
         wildBehavior.play(game);
 

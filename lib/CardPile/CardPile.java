@@ -8,4 +8,5 @@ public interface CardPile {
     Card peekCard();
     void shuffle();
     List<List<Card>> getPlayerHands(int playersCount, int cardsPerPlayerCount);
+    int size();
 }
