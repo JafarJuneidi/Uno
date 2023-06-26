@@ -1,47 +1,69 @@
 import java.util.List;
-import java.util.Scanner;
-import java.util.Stack;
 
 public class Player {
     private final String name;
-    private final List<Card> cardList;
+    private final CardHand hand;
 
-    public Player(String name,  List<Card> cardList){
+    private int points;
+
+    public Player(String name,  CardHand hand){
         this.name = name;
-        this.cardList = cardList;
+        this.hand = hand;
+        this.points = 0;
     }
 
     public void addCard(Card newCard){
-        cardList.add(newCard);
+        hand.addCard(newCard);
     }
 
     public boolean removeCard(Card card) {
-        return cardList.remove(card);
+        return hand.removeCard(card);
     }
 
-    public boolean hasCard(Card card) {
-        for (Card c: cardList) {
-            if (card.equals(c)) {
-                return true;
-            }
+    public boolean removeCard(int index) {
+        if (index >= 0 && index < hand.size()) {
+            hand.removeCard(index);
+            return true;
         }
-
         return false;
     }
-
-    public int size() {
-        return cardList.size();
+    public boolean hasCard(Card card) {
+        return hand.hasCard(card);
     }
 
-    public Card pickCard(Card card) {
-        for (int i = 0; i < cardList.size(); ++i) {
-            System.out.println(i + ": " + card.toString());
-        }
+    public int handSize() {
+        return hand.size();
+    }
 
-        Scanner scanner = new Scanner(System.in);
-        int index = scanner.nextInt();
-        System.out.println("Your Index is: " + index);
+    public Card pickCard(int index) {
+        return hand.getCard(index);
+    }
 
-        return cardList.get(index);
+    public String getName() {
+        return name;
+    }
+
+    public List<Card> getAllCards() {
+        return hand.getAllCards();
+    }
+
+    public void resetHand() {
+        hand.reset();
+    }
+
+    public void addCards(List<Card> cards) {
+        hand.addCards(cards);
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public int getHandPoints() {
+        return hand.calculateCardPoints();
     }
 }
